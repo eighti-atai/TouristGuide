@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">-->
+		
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!--  base package to start scanning annotations. Do not change. kanchana -->
+	<context:component-scan base-package="com.atai.dental.module"/>
+	
+	
+	<mvc:annotation-driven/>
+	
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!--  data source creation change user name and password accordingl. kanchana -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/dental" />
+		<property name="username" value="root" />
+		<property name="password" value="" />
+	</bean>
+	
+	<!-- Hibernate 5 SessionFactory Bean definition. Add your beans under <beans:list> defined in the model package. kanchana-->
+	<bean id="hibernate5AnnotatedSessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<!-- <value>com.atai.dental.module.purch.model.Location</value>
+				<value>com.atai.dental.module.invent.model.InventoryPart</value>
+				<value>com.atai.dental.module.enterprise.model.Address</value>
+				<value>com.atai.dental.module.invent.model.SiteOld</value>
+				<value>com.atai.dental.module.invent.model.InventoryLocation</value>
+				<value>com.atai.dental.module.order.model.SalesPart</value>
+				<value>com.atai.dental.module.order.model.SalesPartPrice</value>
+				<value>com.atai.dental.module.invent.model.InventoryPartCost</value>
+				<value>com.atai.dental.module.invent.model.InvPartInStock</value>
+				<value>com.atai.dental.module.enterprise.model.User</value>
+				<value>com.atai.dental.module.enterprise.model.Role</value>
+				<value>com.atai.dental.module.enterprise.model.Site</value>-->
+				<value>com.atai.dental.module.enterp.model.Appointment</value>
+				<value>com.atai.dental.module.enterp.model.TmpAppointment</value>
+				<value>com.atai.dental.module.enterp.model.Patient</value>
+				<value>com.atai.dental.module.enterp.model.AttendPatient</value> 
+				<value>com.atai.dental.module.trment.model.Treatment</value> 
+				<value>com.atai.dental.module.trment.model.MainTreatmentType</value>
+				<value>com.atai.dental.module.trment.model.SubTreatmentType</value>
+				<value>com.atai.dental.module.invent.model.InventoryPart</value>
+				<value>com.atai.dental.module.invent.model.PartCategory</value>
+				<value>com.atai.dental.module.invent.model.InventoryPartCost</value>
+				<value>com.atai.dental.module.invent.model.InvPartInStock</value>
+				<value>com.atai.dental.module.payment.model.Payment</value>
+				<value>com.atai.dental.module.enterp.model.User</value>
+				<value>com.atai.dental.module.enterp.model.Role</value>
+				<value>com.atai.dental.module.enterp.model.DoctorLov</value>
+				
+				
+				
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<!-- Configure the entity manager factory bean added by jeewan-for security implementation cannot be removed later-->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="com.hellokoding.account.model"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>                 
+            </props>
+        </property>
+    </bean>
+	
+	<!--<beans:bean id="locationDAO" class="com.atai.dental.module.purch.dao.LocationDaoImpl">
+		<beans:property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="locationService" class="com.atai.dental.module.purch.services.LocationServiceImpl">
+		<beans:property name="personDAO" ref="personDAO"></beans:property>
+	</beans:bean>-->
+	
+	<!-- 
+	<bean id="inventoryPartDao" class="com.atai.dental.module.invent.dao.InventoryPartDaoImpl">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean>
+	<bean id="invPartService" class="com.atai.dental.module.invent.service.InventoryPartServiceImpl">
+		<property name="invPartDao" ref="inventoryPartDao"></property>
+	</bean>
+	 -->
+	<!-- <bean id="addressDao" class="com.atai.dental.module.enterprise.dao.AddressDaoImpl">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean>
+	<bean id="addressService" class="com.atai.dental.module.enterprise.service.AddressServiceImpl">
+		<property name="addressDao" ref="addressDao"></property>
+	</bean>
+	
+	<bean id="siteDaoOld" class="com.atai.dental.module.invent.dao.SiteDaoImplOld">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean>
+	<bean id="siteServiceOld" class="com.atai.dental.module.invent.service.SiteServiceImplOld">
+		<property name="siteDao" ref="siteDaoOld"></property>
+	</bean>
+	
+	
+
+	<bean id="invLocationDao" class="com.atai.dental.module.invent.dao.InventoryLocationDaoImpl">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean>
+	<bean id="invLocationService" class="com.atai.dental.module.invent.service.InventoryLocationServiceImpl">
+		<property name="invLocationDao" ref="invLocationDao"></property>
+	</bean>
+
+	<bean id="salesPartDao" class="com.atai.dental.module.order.dao.SalesPartDaoImpl">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean>
+	<bean id="salesPartService" class="com.atai.dental.module.order.service.SalesPartServiceImpl">
+		<property name="salesPartDao" ref="salesPartDao"></property>
+	</bean>
+	
+	<bean id="AbstractDao" class="com.atai.dental.generic.dao" abstract ="true">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean>
+	
+	<bean id="userDao" class="com.atai.dental.module.enterprise.dao.UserDaoImpl" parent="AbstractDao">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean>
+	
+	<bean id="roleDao" class="com.atai.dental.module.enterprise.dao.RoleDaoImpl">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean>
+	
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+    </bean>
+    <bean id="inventoryPartValidator" class="com.atai.dental.module.invent.validator.InventoryPartValidator" /> -->
+	
+	<!-- <bean id="invPartCostDao" 		class="com.atai.dental.module.invent.dao.InventoryPartCostDaoImpl"/> -->
+	<!-- <bean id="invPartCostService" 	class="com.atai.dental.module.invent.service.InventoryPartCostServiceImpl"/> -->
+	<!-- bean id="userDao" class="com.atai.dental.module.enterp.dao.UserDaoImpl" parent="AbstractDao">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean>
+	
+	<bean id="roleDao" class="com.atai.dental.module.enterp.dao.RoleDaoImpl">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean > -->
+	
+    <bean id="appointmentValidator" class="com.atai.dental.module.enterp.validator.AppointmentValidator" />
+    <context:component-scan base-package="com.atai.dental.report.controller"/>
+	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources mapping="/pages/**" location="/pages/" />
+	<!--mvc:resources mapping="/public/**" location="classpath:/public/"/>
+	<mvc:resources mapping="/resources/**" location="classpath:/META-INF/resources/" />
+	<mvc:resources mapping="/webjars/**" location="/webjars/"/>
+	<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/-->
+	
+	<!--  To declarative handling of spring transactions Do not modify kanchana -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+	</bean>
+	
+<!--</beans:beans>-->
+</beans>

@@ -1,0 +1,41 @@
+.panel-violet{border-color:#cb99c9}
+.panel-violet>.panel-heading{color:#fff;background-color:#cb99c9;border-color:#cb99c9}
+.panel-violet>.panel-heading+.panel-collapse>.panel-body{border-top-color:#cb99c9}
+.panel-violet>.panel-heading .badge{color:#cb99c9;background-color:#fff}
+.panel-violet>.panel-footer+.panel-collapse>.panel-body{border-bottom-color:#cb99c9}
+
+
+.panel-pink{border-color:#dea5a4}
+.panel-pink>.panel-heading{color:#fff;background-color:#dea5a4;border-color:#dea5a4}
+.panel-pink>.panel-heading+.panel-collapse>.panel-body{border-top-color:#dea5a4}
+.panel-pink>.panel-heading .badge{color:#dea5a4;background-color:#fff}
+.panel-pink>.panel-footer+.panel-collapse>.panel-body{border-bottom-color:#dea5a4}
+
+
+
+.panel-orange{border-color:#ffb347}
+.panel-orange>.panel-heading{color:#fff;background-color:#ffb347;border-color:#ffb347}
+.panel-orange>.panel-heading+.panel-collapse>.panel-body{border-top-color:#ffb347}
+.panel-orange>.panel-heading .badge{color:#ffb347;background-color:#fff}
+.panel-orange>.panel-footer+.panel-collapse>.panel-body{border-bottom-color:#ffb347}
+
+
+
+.panel-brown{border-color:#836953}
+.panel-brown>.panel-heading{color:#fff;background-color:#836953;border-color:#836953}
+.panel-brown>.panel-heading+.panel-collapse>.panel-body{border-top-color:#836953}
+.panel-brown>.panel-heading .badge{color:#836953;background-color:#fff}
+.panel-brown>.panel-footer+.panel-collapse>.panel-body{border-bottom-color:#836953}
+
+
+.a-db:ACTIVE {color: white}
+.a-db:LINK {color: green}
+.a-db:HOVER {color: white}
+.a-db:VISITED {color: white}
+
+
+
+
+
+
+

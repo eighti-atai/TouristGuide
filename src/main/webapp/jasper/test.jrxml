@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-01-16T15:46:13 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StockReport" pageWidth="500" pageHeight="600" columnWidth="450" leftMargin="5" rightMargin="5" topMargin="10" bottomMargin="1" uuid="c9160443-d8c0-4be2-bad1-fb76c93df041">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Arial" isDefault="true" fontName="Arial" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<queryString>
+		<![CDATA[select patient_id from payment_tab]]>
+	</queryString>
+	<field name="patient_id" class="java.lang.String"/>
+	<title>
+		<band height="50" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement style="Arial" x="0" y="5" width="490" height="30" uuid="e512670e-bd23-4e28-bdff-bd3ff312aa38"/>
+				<textElement textAlignment="Center">
+					<font size="30"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{patient_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Arial" mode="Opaque" x="0" y="5" width="490" height="15" forecolor="#FFFFFF" backcolor="#777765" uuid="92091639-4d43-4255-9ca5-c91662aafc68"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Dental Service Receipt"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

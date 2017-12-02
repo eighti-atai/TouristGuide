@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:p="http://www.springframework.org/schema/p"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http auto-config="true">
+    	<headers>
+        	<frame-options policy="SAMEORIGIN"/>
+    	</headers>
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/index" access="hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/" access="hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/Treatments" access="hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/MainTreatmentTypes" access="hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/SubTreatmentTypes" access="hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/AttendPatients" access="hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/Patients" access="hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/TreatmentQueries" access="hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/Payments" access="hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/AppointmentsDates" access="hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/Appointments" access="hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/TmpAppointments" access="hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')"/>
+        <form-login login-page="/login" default-target-url="/index" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
+        <logout logout-success-url="/login?logout" />
+        <csrf token-repository-ref="tokenRepository"/>
+    </http>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userDetailsServiceImpl">
+            <password-encoder ref="encoder"></password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="userDetailsServiceImpl" class="com.atai.dental.module.enterp.service.UserDetailsServiceImpl"></beans:bean>
+
+    <beans:bean id="encoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg name="strength" value="11"/>
+    </beans:bean>
+    <beans:bean id="tokenRepository"
+	class="org.springframework.security.web.csrf.CookieCsrfTokenRepository"
+	p:cookieHttpOnly="false"/>
+</beans:beans>
